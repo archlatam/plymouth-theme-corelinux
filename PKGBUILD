@@ -3,7 +3,7 @@
 
 pkgname="plymouth-theme-corelinux"
 pkgdesc="The default Plymouth theme for Core Linux"
-pkgver=r2.ef4b90a
+pkgver=r3.148c3ed
 pkgrel=1
 arch=("any")
 url="https://github.com/archlatam/plymouth-theme-corelinux"

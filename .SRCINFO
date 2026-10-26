@@ -1,0 +1,14 @@
+pkgbase = plymouth-theme-corelinux
+	pkgdesc = The default Plymouth theme for Core Linux
+	pkgver = r3.148c3ed
+	pkgrel = 1
+	url = https://github.com/archlatam/plymouth-theme-corelinux
+	install = plymouth-theme-corelinux.install
+	arch = any
+	license = GPL-3.0-only
+	makedepends = git
+	depends = plymouth
+	source = git+https://github.com/archlatam/plymouth-theme-corelinux.git
+	sha256sums = SKIP
+
+pkgname = plymouth-theme-corelinux
