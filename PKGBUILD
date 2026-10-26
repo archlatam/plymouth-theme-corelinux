@@ -3,11 +3,12 @@
 
 pkgname="plymouth-theme-corelinux"
 pkgdesc="The default Plymouth theme for Core Linux"
-pkgver=r2.b83ca55
+pkgver=r2.ef4b90a
 pkgrel=1
 arch=("any")
 url="https://github.com/archlatam/plymouth-theme-corelinux"
-license=("GPL")
+license=("GPL-3.0-only")
+depends=("plymouth")
 makedepends=("git")
 source=("git+$url.git")
 sha256sums=("SKIP")
@@ -19,6 +20,14 @@ pkgver() {
 }
 
 package() {
-  install -d "$pkgdir/usr/share/plymouth/themes/corelinux"
-  cp -rf "$srcdir/$pkgname/usr" "$pkgdir"
+  cd "$srcdir/$pkgname" || exit
+
+  install -dm755 "$pkgdir/usr/share/plymouth/themes"
+  cp -r --no-preserve=ownership usr/share/plymouth/themes/corelinux \
+    "$pkgdir/usr/share/plymouth/themes/"
+
+  find "$pkgdir/usr/share/plymouth/themes/corelinux" -type d -exec chmod 755 {} +
+  find "$pkgdir/usr/share/plymouth/themes/corelinux" -type f -exec chmod 644 {} +
+
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

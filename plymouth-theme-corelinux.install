@@ -1,23 +1,24 @@
 name="corelinux"
 
 post_install() {
-	echo "Set plymouth theme $name"
-	sed -i -e "s,.*Theme=.*,Theme=$name," /etc/plymouth/plymouthd.conf
-	plymouth-set-default-theme -R $name
-	echo "Done"
+	echo "==> Setting Plymouth theme: $name"
+	plymouth-set-default-theme -R "$name"
 }
 
 post_upgrade() {
-	grep "Theme=$name" /etc/plymouth/plymouthd.conf && plymouth-set-default-theme -R "$name"
+	if grep -q "^Theme=$name" /etc/plymouth/plymouthd.conf 2>/dev/null; then
+		plymouth-set-default-theme -R "$name"
+	fi
 }
 
 pre_remove() {
-	grep "Theme=$name" /etc/plymouth/plymouthd.conf && cat <<_EOF
-  
-==> WARNING: You have removed your current plymouth-theme.
+	if grep -q "^Theme=$name" /etc/plymouth/plymouthd.conf 2>/dev/null; then
+		cat <<_EOF
+
+==> WARNING: you are removing your current Plymouth theme.
 ==> Set a different theme with:
 ==> sudo plymouth-set-default-theme -R <theme-name>
-==> or remove Plymouth properly!
 
 _EOF
+	fi
 }
